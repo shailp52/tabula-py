@@ -65,7 +65,8 @@ def _run(java_options, options, path=None, encoding="utf-8"):
 
     try:
         return subprocess.check_output(args)
-    except FileNotFoundError:
+#     except FileNotFoundError:
+    except EnvironmentError:
         raise JavaNotFoundError(JAVA_NOT_FOUND_ERROR)
     except subprocess.CalledProcessError as e:
         logger.error("Error: {}\n".format(e.output.decode(encoding)))
@@ -136,7 +137,8 @@ def read_pdf(
     path, temporary = localize_file(input_path, user_agent)
 
     if not os.path.exists(path):
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), path)
+#         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), path)
+        raise EnvironmentError(errno.ENOENT, os.strerror(errno.ENOENT), path)
 
     if os.path.getsize(path) == 0:
         raise ValueError(
@@ -270,7 +272,8 @@ def convert_into(
     path, temporary = localize_file(input_path)
 
     if not os.path.exists(path):
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), path)
+        raise EnvironmentError(errno.ENOENT, os.strerror(errno.ENOENT), path)
+#         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), path)
 
     if os.path.getsize(path) == 0:
         raise ValueError(
