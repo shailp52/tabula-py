@@ -1,8 +1,14 @@
 import os
 import shutil
-from urllib.parse import urlparse as parse_url
-from urllib.parse import uses_netloc, uses_params, uses_relative
-from urllib.request import Request, urlopen
+# Python 3
+# from urllib.parse import urlparse as parse_url
+# from urllib.parse import uses_netloc, uses_params, uses_relative
+# from urllib.request import Request, urlopen
+
+# Python 2
+from urlparse import urlparse as parse_url
+from urlparse import uses_netloc, uses_params, uses_relative
+from urllib2 import Request, urlopen
 
 _VALID_URLS = set(uses_relative + uses_netloc + uses_params)
 _VALID_URLS.discard("")
